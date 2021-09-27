@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Car List</h1>
+  {% if car_list %}
+  <ul>
+    {% for car in car_list %}
+      <li>
+          {{ car.nombre }} ({{ car.brand }})
+          (<a href="{% url 'car_update' car.id %}">Update</a> |
+          <a href="{% url 'car_delete' car.id %}">Delete</a>) <br/>
+          {{ car.comments }} ({{ car.km }} km)
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no cars in the library.</p>
+  {% endif %}
+  <p>
+    {% if brand_count > 0 %}
+      <a href="{% url 'car_create' %}">Add an car</a>
+    {% else %}
+      Please add a Brand before you add an car.
+    {% endif %}
+  </p>
+  <p>
+  <a href="{% url 'make_list' %}">View brands</a> ({{ brand_count }}) | 
+    <a href="{% url 'make_create' %}">Add a brand</a>
+  </p>
+{% endblock %}
